@@ -46,6 +46,11 @@ TIM_HandleTypeDef htim2;
 
 /* USER CODE BEGIN PV */
 
+//variable for PID
+float 	 alpha = 0, beta = 0, gamma = 0;
+uint8_t  duty = 0, pre_duty = 0;
+
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -107,7 +112,6 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   uint8_t temperature;
-  uint8_t duty = 0;
   while (1)
   {
 
@@ -315,6 +319,35 @@ void TIM2_PWM_Set_Frequency(uint32_t frequency)
 	uint32_t f_timer = HAL_RCC_GetPCLK1Freq() * 1; 	 //1 is APB1 time multiplier value
 	TIM2->PSC = f_timer / (100 * frequency) - 1;
 
+}
+
+/**
+  * @brief Config PID
+  * @param T: sampling cycle: recommend value = 0.01s
+  * @retval None
+  */
+void PID_Config(uint8_t Kp, uint8_t Ki, uint8_t Kd, float T)
+{
+	alpha = 2*T*Kp + Ki*T*T + 2*Kd;
+	beta = T*T*Ki - 4*Kd - 2*T*Kp;
+	gamma = 2*Kd;
+
+}
+
+/**
+  * @brief Config PID
+  * @param
+  * @retval None
+  */
+void PID(uint16_t setPoint_Speed, uint16_t actual_Speed)
+{
+	static uint16_t e0 = 0, e1 = 0, e2 = 0;
+	e0 = setPoint_Speed - actual_Speed;
+	duty = (alpha*e0 + beta*e1 + gamma*e2 + pre_duty) / (2*T);
+	pre_duty = duty;
+	e2 = e1;
+	e1 = e0;
+	TIM2_PWM_Set_Duty(duty);
 }
 
 

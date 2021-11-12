@@ -1,0 +1,29 @@
+How PWM works:
+https://www.youtube.com/watch?v=5nwNKPs2gco&t=199s
+
+https://www.youtube.com/watch?v=UPTU6nYSaMo
+
+*Speed Control of DC Motor Using PID Algorithm (STM32F4):
+https://www.instructables.com/Speed-Control-of-DC-Motor-Using-PID-Algorithm-STM3/?fbclid=IwAR1tQjgwV_O-s1ZLV4uCXqwsJJORoTuL6ZdZbGaK9WpmbsJxEwUegV8_-rs
+
+https://www.dialog-semiconductor.com/sites/default/files/an-cm-250_position_and_speed_control_of_a_dc_motor_using_analog_pid_controller.pdf?fbclid=IwAR3l38QSLB30YQVYW2KgZCL-h8szsEoXdggTwU9lmOmIHidCcr0uQKIuuQ4
+
+http://bhagatnikunj.weebly.com/uploads/1/0/4/6/10469153/esd_report.pdf?fbclid=IwAR3M2dFJrRcVCYiRIfPzJsRBXNOQAH_cTd2m7mESrUBpvKOAkuN_Q56BIOI
+
+điều khiển PID tốc độ đông cơ dùng Arduino(dưới cmt có code mẫu)"
+https://www.youtube.com/watch?v=4BEVEKtXdrM&t=219s
+
+DS18B20 với STM32 sử dụng TIMER Delay:
+https://www.youtube.com/watch?v=09C1dyXvSbg
+
+Fan Speed (RPM) Measurement using IR Sensor and Arduino:
+https://www.youtube.com/watch?v=E5A4xgvvL84&t=49s
+
+Cách sử dụng MOSFET | Học Nghề Kỹ Sư Điện & Điện Tử:
+https://www.youtube.com/watch?v=ZrEN5ES9M1M
+
+LM35 How to get Stable Temperature Reading:
+https://www.youtube.com/watch?v=X2f8nHb8Tl8
+
+Hướng dẫn điều khiển PID số (PID rời rạc)_part 1:
+https://www.youtube.com/watch?v=bMSVXpaZVZY

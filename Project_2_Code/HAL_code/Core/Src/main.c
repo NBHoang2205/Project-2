@@ -101,9 +101,9 @@ int main(void)
   /* USER CODE BEGIN 2 */
   Lcd_display(10, 1000);
 
-  TIM2_PWM_Set_Duty(10);
+  TIM2_PWM_Set_Duty(100);
   TIM2_PWM_Set_Frequency(2000);
-  if( HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2) != HAL_OK)
+  if( HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_4) != HAL_OK)
   {
 	  Error_Handler();
   }
@@ -111,23 +111,25 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  uint8_t temperature;
+  uint8_t temperature, duty = 0;
 
   while (1)
   {
 
-//	  while(duty <= 100)
-//	  {
-//		  TIM2_PWM_Set_Duty(duty);
-//		  HAL_Delay(50);
-//		  duty += 5;
-//	  }
-//	  duty = 0;
-	HAL_ADC_Start(&hadc1);
-	HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
-	temperature = ((float)HAL_ADC_GetValue(&hadc1) / 4096) * 3.3 * 100;
-	Lcd_display(temperature, 2205);
-	HAL_Delay(1000);
+
+	  while(duty <= 100)
+	  {
+		  TIM2_PWM_Set_Duty(duty);
+		  HAL_Delay(100);
+		  duty += 10;
+	  }
+	  duty = 0;
+
+//	HAL_ADC_Start(&hadc1);
+//	HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
+//	temperature = ((float)HAL_ADC_GetValue(&hadc1) / 4096) * 3.3 * 100;
+//	Lcd_display(temperature, 2205);
+//	HAL_Delay(1000);
 
 
 
@@ -237,7 +239,6 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 0 */
 
-  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
   TIM_MasterConfigTypeDef sMasterConfig = {0};
   TIM_OC_InitTypeDef sConfigOC = {0};
 
@@ -245,20 +246,11 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 79;
+  htim2.Init.Prescaler = 0;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim2.Init.Period = 99;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-  if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
   if (HAL_TIM_PWM_Init(&htim2) != HAL_OK)
   {
     Error_Handler();
@@ -270,10 +262,10 @@ static void MX_TIM2_Init(void)
     Error_Handler();
   }
   sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = 10;
+  sConfigOC.Pulse = 0;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
-  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
+  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_4) != HAL_OK)
   {
     Error_Handler();
   }
@@ -307,22 +299,22 @@ static void MX_GPIO_Init(void)
 void TIM2_PWM_Set_Duty(uint8_t duty)
 {
 	uint16_t compare = (htim2.Init.Period + 1) * duty / 100;
-	__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_2, compare);
+	__HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_4, compare);
 }
 
 /**
   * @brief GPIO Initialization Function
-  * @param frequency(Hz); 2 < f < 80000
+  * @param frequency(Hz); 2 < f < 10000
   * @retval None
   */
 void TIM2_PWM_Set_Frequency(uint32_t frequency)
 {
-	// Fixed Period = 99
+	// PSC > 0 -> if f = 10000, period must < 800
 	// frequency = f_timer / [(Period + 1) * (Psc + 1)]
-	// -> Psc = f_timer / (100 * frequency) - 1;
+	// -> Psc = f_timer / ((period + 1)*frequency) - 1;
+	uint32_t period = htim2.Init.Period;
 	uint32_t f_timer = HAL_RCC_GetPCLK1Freq() * 1; 	 //1 is APB1 time multiplier value
-	TIM2->PSC = f_timer / (100 * frequency) - 1;
-
+	TIM2->PSC = f_timer / ((period + 1) * frequency) - 1;
 }
 
 /**

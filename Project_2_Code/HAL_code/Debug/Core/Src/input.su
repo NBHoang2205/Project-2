@@ -1,0 +1,2 @@
+input.c:9:9:read_temp	16	static
+input.c:18:10:read_speed	16	static

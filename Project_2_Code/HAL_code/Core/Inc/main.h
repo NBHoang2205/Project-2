@@ -33,7 +33,8 @@ extern "C" {
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "lcd_16x2.h"
-
+#include "PID.h"
+#include "input.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

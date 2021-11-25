@@ -52,12 +52,10 @@ TIM_HandleTypeDef htim3;
 
 /* USER CODE BEGIN PV */
 
+uint16_t actualSpeed = 0, desireSpeed = 0;
 uint8_t mode = MODE_NONE;
-//variable for PID
-//float 	 alpha = 0, beta = 0, gammaa = 0;
-//uint8_t  duty = 0, pre_duty = 0;
-
-
+uint8_t duty = 0;
+uint8_t temp = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -115,7 +113,7 @@ int main(void)
   //LCD display
   Lcd_display1();
 
-  TIM2_PWM_Set_Duty(0);
+  TIM2_PWM_Set_Duty(duty);
   TIM2_PWM_Set_Frequency(2000);
   if( HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_4) != HAL_OK)
   {
@@ -125,7 +123,6 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
 
   while (1)
   {
@@ -161,7 +158,6 @@ int main(void)
 //	temperature = ((float)HAL_ADC_GetValue(&hadc1) / 4096) * 3.3 * 100;
 //	Lcd_display(temperature, 2205);
 //	HAL_Delay(1000);
-
 
 
     /* USER CODE END WHILE */
@@ -496,37 +492,6 @@ void TIM2_PWM_Set_Frequency(uint32_t frequency)
 	TIM2->PSC = f_timer / ((period + 1) * frequency) - 1;
 }
 
-/**
-  * @brief Config PID
-  * @param T: sampling cycle: recommend value = 0.01s
-  * @retval None
-  */
-#if 0
-void PID_Config(uint8_t Kp, uint8_t Ki, uint8_t Kd, float T)
-{
-	alpha = 2*T*Kp + Ki*T*T + 2*Kd;
-	beta = T*T*Ki - 4*Kd - 2*T*Kp;
-	gamma = 2*Kd;
-
-}
-#endif
-/**
-  * @brief Config PID
-  * @param
-  * @retval None
-  */
-#if 0
-void PID(uint16_t setPoint_Speed, uint16_t actual_Speed)
-{
-	static uint16_t e0 = 0, e1 = 0, e2 = 0;
-	e0 = setPoint_Speed - actual_Speed;
-	duty = (alpha*e0 + beta*e1 + gamma*e2 + pre_duty) / (2*T);
-	pre_duty = duty;
-	e2 = e1;
-	e1 = e0;
-	TIM2_PWM_Set_Duty(duty);
-}
-#endif
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
@@ -534,6 +499,22 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   UNUSED(htim);
   HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
 
+  temp = read_temp(hadc1);
+  actualSpeed = read_speed(htim3);
+  if(mode == MODE_BYTEMP)
+  {
+	//  desireSpeed = temp_to_speed();
+  }else if(mode == MODE_MANUAL)
+  {
+	//  desireSpeed = manual_to_speed();
+  }
+  duty = PID(actualSpeed, desireSpeed);
+  TIM2_PWM_Set_Duty(duty);
+  Lcd_display2(temp, actualSpeed);
+
+  HAL_SuspendTick();
+  __WFI();
+  HAL_ResumeTick();
   /* NOTE : This function should not be modified, when the callback is needed,
             the HAL_TIM_PeriodElapsedCallback could be implemented in the user file
    */

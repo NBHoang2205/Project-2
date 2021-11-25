@@ -149,13 +149,30 @@ void Lcd_clear_xy(uint8_t x,uint8_t y)
 /**/
 //_____________________________________________________________________________________________________
 
+/*****
+** Display string
+******/
+
+void Lcd_display1(void)
+{
+	Lcd_gotoxy(0, 0);
+	//write Temperature
+	Lcd_write_string("MODE:");
+	Lcd_gotoxy(6, 0);
+	Lcd_write_string("1. ByTemp");
+
+	//write Speed
+	Lcd_gotoxy(0, 1);
+	Lcd_gotoxy(6, 1);
+	Lcd_write_string("2. Manual");
+}
 
 
 /*****
 ** Display temperature, speed
 ******/
 
-void Lcd_display(uint8_t temperatute, uint16_t speed)
+void Lcd_display2(uint8_t temperatute, uint16_t speed)
 {
 	Lcd_gotoxy(0, 0);
 	//write Temperature

@@ -102,7 +102,8 @@ void    Lcd_create_custom_char(uint8_t location, uint8_t* data_bytes);
 void    Lcd_clear_display(void); 
 void    Lcd_write_string(char * string);
 void    Lcd_write_int(int number);
-void 	Lcd_display(uint8_t temperatute, uint16_t speed);
+void 	Lcd_display1(void);
+void 	Lcd_display2(uint8_t temperatute, uint16_t speed);
 	
 
 

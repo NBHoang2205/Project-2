@@ -61,6 +61,24 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define LED_Pin GPIO_PIN_13
+#define LED_GPIO_Port GPIOC
+#define ADC1_Temp_Pin GPIO_PIN_2
+#define ADC1_Temp_GPIO_Port GPIOA
+#define PWM_Pin GPIO_PIN_3
+#define PWM_GPIO_Port GPIOA
+#define ADC1_Manual_Pin GPIO_PIN_4
+#define ADC1_Manual_GPIO_Port GPIOA
+#define BYTEMP_Pin GPIO_PIN_5
+#define BYTEMP_GPIO_Port GPIOA
+#define MANUAL_Pin GPIO_PIN_6
+#define MANUAL_GPIO_Port GPIOA
+#define STOP_Pin GPIO_PIN_7
+#define STOP_GPIO_Port GPIOA
+#define TI1_encoder_Pin GPIO_PIN_4
+#define TI1_encoder_GPIO_Port GPIOB
+#define TI2_encoder_Pin GPIO_PIN_5
+#define TI2_encoder_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

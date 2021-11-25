@@ -6,8 +6,9 @@ lcd_16x2.c:86:6:Lcd_create_custom_char	24	static
 lcd_16x2.c:110:6:Lcd_gotoxy	16	static
 lcd_16x2.c:130:6:Lcd_write_custom_char	16	static
 lcd_16x2.c:144:6:Lcd_clear_xy	16	static
-lcd_16x2.c:158:6:Lcd_display	16	static
-lcd_16x2.c:190:7:Lcd_configure	40	static
-lcd_16x2.c:256:6:lcd_write_command	16	static
-lcd_16x2.c:265:6:lcd_write_data	16	static
-lcd_16x2.c:274:6:lcd_write	24	static
+lcd_16x2.c:156:6:Lcd_display1	8	static
+lcd_16x2.c:175:6:Lcd_display2	16	static
+lcd_16x2.c:207:7:Lcd_configure	40	static
+lcd_16x2.c:273:6:lcd_write_command	16	static
+lcd_16x2.c:282:6:lcd_write_data	16	static
+lcd_16x2.c:291:6:lcd_write	24	static

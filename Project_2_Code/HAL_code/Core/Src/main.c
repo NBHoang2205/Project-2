@@ -22,7 +22,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "PID.h"
+#include "input.h"
+#include "lcd_16x2.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -56,6 +58,7 @@ uint16_t actualSpeed = 0, desireSpeed = 0;
 uint8_t mode = MODE_NONE;
 uint8_t duty = 0;
 uint8_t temp = 0;
+uint16_t data[2];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -104,9 +107,9 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_ADC1_Init();
   MX_TIM2_Init();
-  MX_DMA_Init();
   MX_TIM3_Init();
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
@@ -119,6 +122,10 @@ int main(void)
   {
 	  Error_Handler();
   }
+  if( HAL_ADC_Start_DMA(&hadc1, (uint32_t*)data, 2) != HAL_OK)
+  {
+	  Error_Handler();
+  }
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -126,6 +133,7 @@ int main(void)
 
   while (1)
   {
+
 	  if(HAL_GPIO_ReadPin(BYTEMP_GPIO_Port, BYTEMP_Pin) == 0)
 	  {
 		  HAL_Delay(20);
@@ -230,7 +238,7 @@ static void MX_ADC1_Init(void)
   */
   hadc1.Instance = ADC1;
   hadc1.Init.ScanConvMode = ADC_SCAN_ENABLE;
-  hadc1.Init.ContinuousConvMode = DISABLE;
+  hadc1.Init.ContinuousConvMode = ENABLE;
   hadc1.Init.DiscontinuousConvMode = DISABLE;
   hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
   hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
@@ -499,8 +507,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   UNUSED(htim);
   HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
 
-  temp = read_temp(hadc1);
+  temp = read_temp((uint16_t*)data);
   actualSpeed = read_speed(htim3);
+
   if(mode == MODE_BYTEMP)
   {
 	//  desireSpeed = temp_to_speed();

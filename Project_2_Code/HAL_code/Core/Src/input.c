@@ -6,11 +6,12 @@
  */
 #include "input.h"
 
-uint8_t read_temp(ADC_HandleTypeDef hadc)
+
+uint16_t cnt = 0, preCnt = 0;
+
+uint8_t read_temp(uint16_t* data)
 {
-	HAL_ADC_Start_DMA(&hadc, (uint32_t*)data, 2);
-	HAL_Delay(10);
-	HAL_ADC_Stop_DMA(&hadc);
+
 	uint8_t	temp = ((float)data[0]/ 4096) * 3.3 * 100;
 	return temp;
 }

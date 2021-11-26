@@ -4,7 +4,11 @@
  *  Created on: Nov 25, 2021
  *      Author: acer
  */
-#include "PID.h"
+#include <PID.h>
+#include <stdint.h>
+
+uint16_t preError = 0, error = 0, sumError = 0;
+float rateError = 0;
 
 uint8_t PID(uint16_t actualSpeed, uint16_t desireSpeed)
 {
@@ -16,6 +20,7 @@ uint8_t PID(uint16_t actualSpeed, uint16_t desireSpeed)
 	preError = error;
 	return duty;
 }
+
 
 
 /**

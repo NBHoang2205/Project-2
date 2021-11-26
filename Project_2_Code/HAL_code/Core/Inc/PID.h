@@ -17,7 +17,5 @@
 
 uint8_t PID(uint16_t actualSpeed, uint16_t desireSpeed);
 
-uint16_t preError = 0, error = 0, sumError = 0;
-float rateError = 0;
 
 #endif /* INC_PID_H_ */

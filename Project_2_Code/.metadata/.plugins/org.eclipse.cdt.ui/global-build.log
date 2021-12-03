@@ -1,0 +1,59 @@
+11:41:13 **** Incremental Build of configuration Debug for project Code_Project_2_c8 ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "Code_Project_2_c8.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\acer\OneDrive - Hanoi University of Science and Technology\NAM_4\KY_1\Project_2\Project_2_Code\Code_Project_2_c8\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Code_Project_2_c8.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Code_Project_2_c8.elf
+ 
+arm-none-eabi-size   Code_Project_2_c8.elf 
+arm-none-eabi-objdump -h -S  Code_Project_2_c8.elf  > "Code_Project_2_c8.list"
+arm-none-eabi-objcopy  -O binary  Code_Project_2_c8.elf  "Code_Project_2_c8.bin"
+   text	   data	    bss	    dec	    hex	filename
+  21568	    144	   1960	  23672	   5c78	Code_Project_2_c8.elf
+Finished building: default.size.stdout
+ 
+Finished building: Code_Project_2_c8.bin
+ 
+Finished building: Code_Project_2_c8.list
+ 
+11:41:26 **** Incremental Build of configuration Debug for project Code_Project_2_c8 ****
+make -j8 all 
+arm-none-eabi-size   Code_Project_2_c8.elf 
+   text	   data	    bss	    dec	    hex	filename
+  21568	    144	   1960	  23672	   5c78	Code_Project_2_c8.elf
+Finished building: default.size.stdout
+ 
+11:43:09 **** Incremental Build of configuration Debug for project Code_Project_2_c8 ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "Code_Project_2_c8.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\acer\OneDrive - Hanoi University of Science and Technology\NAM_4\KY_1\Project_2\Project_2_Code\Code_Project_2_c8\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Code_Project_2_c8.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Code_Project_2_c8.elf
+ 
+arm-none-eabi-size   Code_Project_2_c8.elf 
+arm-none-eabi-objdump -h -S  Code_Project_2_c8.elf  > "Code_Project_2_c8.list"
+arm-none-eabi-objcopy  -O binary  Code_Project_2_c8.elf  "Code_Project_2_c8.bin"
+   text	   data	    bss	    dec	    hex	filename
+  21576	    144	   1960	  23680	   5c80	Code_Project_2_c8.elf
+Finished building: default.size.stdout
+ 
+Finished building: Code_Project_2_c8.bin
+ 
+Finished building: Code_Project_2_c8.list
+ 
+11:49:47 **** Incremental Build of configuration Debug for project Code_Project_2_c8 ****
+make -j8 all 
+arm-none-eabi-gcc "../Core/Src/input.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/input.d" -MT"Core/Src/input.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/input.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m3 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F103xB -c -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfloat-abi=soft -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "Code_Project_2_c8.elf" @"objects.list"   -mcpu=cortex-m3 -T"C:\Users\acer\OneDrive - Hanoi University of Science and Technology\NAM_4\KY_1\Project_2\Project_2_Code\Code_Project_2_c8\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Code_Project_2_c8.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Code_Project_2_c8.elf
+ 
+arm-none-eabi-size   Code_Project_2_c8.elf 
+arm-none-eabi-objdump -h -S  Code_Project_2_c8.elf  > "Code_Project_2_c8.list"
+arm-none-eabi-objcopy  -O binary  Code_Project_2_c8.elf  "Code_Project_2_c8.bin"
+   text	   data	    bss	    dec	    hex	filename
+  21568	    144	   1960	  23672	   5c78	Code_Project_2_c8.elf
+Finished building: default.size.stdout
+ 
+Finished building: Code_Project_2_c8.bin
+ 
+Finished building: Code_Project_2_c8.list
+ 

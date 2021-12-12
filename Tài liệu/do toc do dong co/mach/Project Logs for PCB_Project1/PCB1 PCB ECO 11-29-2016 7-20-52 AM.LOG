@@ -1,0 +1,13 @@
+Removed Pin From Net: NetName=RS Pin=IC2-21
+Removed Pin From Net: NetName=RW Pin=IC2-22
+Removed Pin From Net: NetName=EN Pin=IC2-23
+Removed Pin From Net: NetName=LCD5 Pin=IC2-25
+Removed Pin From Net: NetName=LCD6 Pin=IC2-26
+Removed Pin From Net: NetName=LCD7 Pin=IC2-27
+Added Pin To Net: NetName=LCD7 Pin=IC2-21
+Added Pin To Net: NetName=LCD6 Pin=IC2-22
+Added Pin To Net: NetName=LCD5 Pin=IC2-23
+Added Pin To Net: NetName=EN Pin=IC2-25
+Added Pin To Net: NetName=RW Pin=IC2-26
+Added Pin To Net: NetName=RS Pin=IC2-27
+Added Room: Name=Sheet1

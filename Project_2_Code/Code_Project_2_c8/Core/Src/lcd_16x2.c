@@ -174,8 +174,8 @@ void Lcd_display1(void)
 
 void Lcd_display2(uint8_t temperatute, uint16_t speed)
 {
-	static uint8_t pre_temperatute = 0;
-	static uint16_t pre_speed = 0;
+	static uint8_t pre_temperatute = -1;
+	static uint16_t pre_speed = -1;
 	if(pre_temperatute != temperatute)
 	{
 		Lcd_gotoxy(0, 0);

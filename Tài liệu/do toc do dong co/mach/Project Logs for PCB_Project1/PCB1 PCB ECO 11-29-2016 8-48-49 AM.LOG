@@ -1,0 +1,4 @@
+Removed Pin From Net: NetName=PWM Pin=IC2-15
+Removed Pin From Net: NetName=B Pin=IC2-17
+Added Pin To Net: NetName=B Pin=IC2-15
+Added Pin To Net: NetName=PWM Pin=IC2-17

@@ -1,0 +1,188 @@
+C51 COMPILER V9.01   CODE                                                                  11/17/2016 20:56:41 PAGE 1   
+
+
+C51 COMPILER V9.01, COMPILATION OF MODULE CODE
+OBJECT MODULE PLACED IN code.OBJ
+COMPILER INVOKED BY: C:\Keil\C51\BIN\C51.EXE code.C BROWSE DEBUG OBJECTEXTEND
+
+line level    source
+
+   1          #include <AT89X52.h>
+   2          #include <pwm.c>
+   3          #include <stdio.h>
+   4          #include <lcd1.h>
+   5          
+   6          #define bt_up     P1_0 
+   7          #define bt_down   P1_1
+   8          
+   9          
+  10          signed int pulse = 0, pulse1 = 0;
+  11          unsigned char sample_count = 0; // dem so lan ngat timer 1
+  12          char str[16];
+  13          
+  14            void set_pwm_();
+  15          
+  16          
+  17          
+  18          //Ham hien thi toc do va phan tram xung
+  19          
+  20          void display()
+  21          {
+  22   1              LCD_gotoxy(0,1);
+  23   1              sprintf(str,"xung: %3i",pwm_);
+  24   1              LCD_PutsChar(str);
+  25   1              LCD_gotoxy(0,2);
+  26   1              sprintf(str,"Toc do:%5i v/s",(signed int)((float)pulse1/8.35));
+  27   1              LCD_PutsChar(str);
+  28   1      }
+  29          
+  30          void set_pwm_()
+  31          {
+  32   1               if(pwm_>0)
+  33   1                       {
+  34   2                               set_pwm_duty(pwm_); 
+  35   2                               DIR=1;
+  36   2                   }
+  37   1                       else if(pwm_<0)
+  38   1                       {
+  39   2                              set_pwm_duty(-pwm_); 
+  40   2                              DIR=0;
+  41   2                       }
+  42   1                      
+  43   1      
+  44   1      }
+  45          
+  46          void button()
+  47          {         int c=0;
+  48   1                if(bt_up==0) 
+  49   1                      {       delay_ms(100);
+  50   2                              while(bt_up==0)
+  51   2                              {       c++;
+  52   3                                      if(c==30000) 
+  53   3                                      {
+  54   4                                              while(bt_up==0)
+  55   4                                              {
+C51 COMPILER V9.01   CODE                                                                  11/17/2016 20:56:41 PAGE 2   
+
+  56   5                                              if(pwm_<50)
+  57   5                                                      pwm_++;
+  58   5                                                      set_pwm_();
+  59   5                                              delay_ms(5);
+  60   5                                              display();
+  61   5                                              }
+  62   4                                         c=0;
+  63   4                                      }
+  64   3                              }
+  65   2                              if(pwm_<50)
+  66   2                                      pwm_++;
+  67   2                         set_pwm_();
+  68   2                              c=0;
+  69   2                      }
+  70   1                       if(bt_down==0) 
+  71   1                      {       delay_ms(100);
+  72   2                              while(bt_down==0)
+  73   2                              {       c++;
+  74   3                                      if(c==30000) 
+  75   3                                      {
+  76   4                                              while(bt_down==0)
+  77   4                                              {
+  78   5                                              if(pwm_>-50)
+  79   5                                                      pwm_--;
+  80   5                                              set_pwm_();
+  81   5                                              delay_ms(5);
+  82   5                                              display();
+  83   5                                              }
+  84   4                                          c=0;
+  85   4                                      }
+  86   3                              }
+  87   2                              if(pwm_>-50)
+  88   2                                      pwm_--;
+  89   2                              set_pwm_();
+  90   2                              c=0;
+  91   2                      }
+  92   1      }
+  93          
+  94          //--------------------TIMER1-----------------
+  95          
+  96          // khoi tao timer 1
+  97          void timer1_init()
+  98          {
+  99   1                      EA = 1;// cho phep ngat toan cuc
+ 100   1              ET1 = 1; //Cho phep ngat timer 1;
+ 101   1      
+ 102   1              TMOD &= 0x0F;
+ 103   1              TMOD |= 0x10; //timer 1 che do 16bit
+ 104   1              TH1 = 0x9E;
+ 105   1              TL1 = 0x58; //tu 9F58 den FFFF la 25000 pulse ~ 25ms
+ 106   1              TR1 = 1;
+ 107   1              
+ 108   1              
+ 109   1      }
+ 110          
+ 111          //-------------------EXTERNAL1----------------
+ 112          void ngatngoai0_init()
+ 113          {
+ 114   1              EA=1;
+ 115   1              EX0 = 1;// cho phep ngat ngoai 1
+ 116   1              IT0 = 1;//ngat theo suon
+ 117   1              
+C51 COMPILER V9.01   CODE                                                                  11/17/2016 20:56:41 PAGE 3   
+
+ 118   1      }
+ 119          
+ 120           
+ 121          //timer 1
+ 122          //sau 25ms thi thuc hien chuong trinh phuc vu ngat
+ 123          
+ 124          void Timer1overflow(void) interrupt 3
+ 125          {       
+ 126   1              
+ 127   1              EX0 = 0;//cam ngat ngoai
+ 128   1              pulse1 = pulse;
+ 129   1              pulse=0;
+ 130   1              TH1 = 0x9E;
+ 131   1              TL1 = 0x58; //tu 9F58 den FFFF la 25000 xung ~ 25ms
+ 132   1              TR1 = 1;
+ 133   1              EX0 = 1;//bat ngat ngoai
+ 134   1      }
+ 135          
+ 136          //khi nao co xung thi dem
+ 137          void External0(void) interrupt 0
+ 138          {
+ 139   1              if(P3_3 == 0)
+ 140   1                      pulse++;
+ 141   1              else pulse--;
+ 142   1      }
+ 143          
+ 144          
+ 145          void main()
+ 146          {       pwm_pin1=0;
+ 147   1              pwm_pin2=0;
+ 148   1              pwm_en=0;
+ 149   1              LCD_inits();    
+ 150   1          timer1_init();
+ 151   1              ngatngoai0_init();
+ 152   1              pwm_init();
+ 153   1              
+ 154   1              while(1)
+ 155   1              {       
+ 156   2                       display();
+ 157   2                       button();
+ 158   2                       set_pwm_();
+ 159   2              }
+ 160   1      }
+ 161          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    916    ----
+   CONSTANT SIZE    =     25    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     43       8
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

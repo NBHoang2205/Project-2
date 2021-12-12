@@ -13,6 +13,7 @@ uint16_t cnt = 0, preCnt = 0;
 uint8_t read_temp(ADC_HandleTypeDef* hadc, uint16_t* data)
 {
 	HAL_ADC_Start_DMA(hadc, (uint32_t*)data, 2);
+	HAL_DMA_PollForTransfer(hadc->DMA_Handle, HAL_DMA_FULL_TRANSFER, HAL_MAX_DELAY);
 	uint8_t	temp = ((float)data[0]/ 4096) * 3.3 * 100;
 	return temp;
 }

@@ -1,0 +1,25 @@
+Removed Pin From Net: NetName=LCD7 Pin=IC2-21
+Removed Pin From Net: NetName=LCD6 Pin=IC2-22
+Removed Pin From Net: NetName=LCD5 Pin=IC2-23
+Removed Pin From Net: NetName=LCD4 Pin=IC2-24
+Removed Pin From Net: NetName=EN Pin=IC2-25
+Removed Pin From Net: NetName=RW Pin=IC2-26
+Removed Pin From Net: NetName=RS Pin=IC2-27
+Added Component: Designator=RN?(RN8)
+Added Pin To Net: NetName=LCD7 Pin=IC2-33
+Added Pin To Net: NetName=LCD6 Pin=IC2-34
+Added Pin To Net: NetName=LCD5 Pin=IC2-35
+Added Pin To Net: NetName=LCD4 Pin=IC2-36
+Added Pin To Net: NetName=EN Pin=IC2-37
+Added Pin To Net: NetName=RW Pin=IC2-38
+Added Pin To Net: NetName=RS Pin=IC2-39
+Added Pin To Net: NetName=VCC Pin=RN?-1
+Added Pin To Net: NetName=RS Pin=RN?-2
+Added Pin To Net: NetName=RW Pin=RN?-3
+Added Pin To Net: NetName=EN Pin=RN?-4
+Added Pin To Net: NetName=LCD4 Pin=RN?-5
+Added Pin To Net: NetName=LCD5 Pin=RN?-6
+Added Pin To Net: NetName=LCD6 Pin=RN?-7
+Added Pin To Net: NetName=LCD7 Pin=RN?-8
+Added Member To Class: ClassName=Sheet1 Member=Component RN? 10K
+Added Room: Name=Sheet1
